@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ML Research & Bites — RSVP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1: #1f2937;
+    --bg2: #111827;
+    --accent: #f97316;
+    --accent2: #22c55e;
+    --card: rgba(255,255,255,0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .card {
+    background: var(--card);
+    backdrop-filter: blur(14px);
+    border-radius: 22px;
+    padding: 36px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+    text-align: center;
+  }
+
+  .emoji {
+    font-size: 36px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .event-date {
+    margin-top: 18px;
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #f97316, #fb923c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .event-time {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    color: #d1d5db;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+
+  input:focus, select:focus {
+    outline: 2px solid var(--accent);
+  }
+
+  button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 14px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    background: #ea580c;
+  }
+
+  .success {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(34,197,94,0.2);
+    border: 1px solid var(--accent2);
+  }
+
+  .error {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(239,68,68,0.2);
+    border: 1px solid #ef4444;
+  }
+
+  .footer {
+    margin-top: 18px;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="emoji">🍕🍺🔬</div>
+
+      <h1>ML Research & Bites</h1>
+
+      <div class="event-date">Date: 12.3</div>
+      <div class="event-time">Time: 18:00</div>
+
+      <form id="rsvpForm">
+        <label>Full Name</label>
+        <input type="text" name="fullName" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Will you join?</label>
+        <select name="attendance" required>
+          <option value="">Select…</option>
+          <option value="Yes">Yes, I’m coming 🎉</option>
+          <option value="Maybe">Maybe 🤔</option>
+          <option value="No">No 😢</option>
+        </select>
+
+        <button type="submit">Submit RSVP</button>
+
+        <div id="message"></div>
+      </form>
+
+      <div class="footer">
+        Looking forward to seeing you!
+      </div>
+    </div>
+  </div>
+
+<script>
+  // 👉 PASTE your Google Apps Script Web App URL here
+  const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzO8m_u6zLREDQ8gaq2SODHaMakXFmkdH2ddydC9EryFc4Nh9R1LKjsh0NwrFCoZCVv/exec";
+
+  const form = document.getElementById("rsvpForm");
+  const message = document.getElementById("message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    message.innerHTML = "";
+
+    const payload = {
+      fullName: form.fullName.value.trim(),
+      email: form.email.value.trim(),
+      attendance: form.attendance.value
+    };
+
+    try {
+      const res = await fetch(ENDPOINT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Submission failed.");
+      }
+
+      message.innerHTML = `<div class="success">✅ Your RSVP was recorded. See you there!</div>`;
+      form.reset();
+    } catch (err) {
+      message.innerHTML = `<div class="error">❌ Something went wrong. Please try again.</div>`;
+    }
+  });
+</script>
+
+</body>
+</html>
