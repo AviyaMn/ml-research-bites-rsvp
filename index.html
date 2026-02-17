@@ -101,6 +101,13 @@
     font-size:14px;
   }
 
+  .organizers{
+    margin-top:14px;
+    text-align:center;
+    font-size:13px;
+    color:var(--muted2);
+  }
+
   form{margin-top:18px}
 
   label{
@@ -111,7 +118,7 @@
     font-size:13px;
   }
 
-  input, select{
+  input, select, textarea{
     width:100%;
     padding:12px;
     border-radius:12px;
@@ -121,9 +128,16 @@
     font-size:15px;
   }
 
-  input::placeholder{color:rgba(255,255,255,0.55)}
+  textarea{
+    resize:vertical;
+    min-height:70px;
+  }
 
-  input:focus, select:focus{
+  input::placeholder, textarea::placeholder{
+    color:rgba(255,255,255,0.55);
+  }
+
+  input:focus, select:focus, textarea:focus{
     outline:none;
     border-color:rgba(249,115,22,0.9);
     box-shadow:0 0 0 3px rgba(249,115,22,0.2);
@@ -182,7 +196,7 @@
 
     <h1>ML Research &amp; Bites</h1>
     <div class="date">12.3</div>
-    <div class="time">Around 17:00</div>
+    <div class="time">17:00</div>
 
     <div class="about">
       ML Research &amp; Bites is a social gathering for graduate CS students interested in machine learning research.
@@ -190,6 +204,10 @@
 
     <div class="program">
       <strong>Program:</strong> The evening will focus on connecting and exchanging ideas, alongside three short presentations by students sharing their current work.
+    </div>
+
+    <div class="organizers">
+      Organized by: Yanai Elazar, Aviya Maimon &amp; Ben Fishman
     </div>
 
     <form id="rsvpForm">
@@ -207,6 +225,9 @@
         <option value="No">No 😢</option>
       </select>
 
+      <label>Food Constraints (optional)</label>
+      <textarea name="foodConstraints" placeholder="Vegetarian, vegan, allergies, etc."></textarea>
+
       <button type="submit">Submit RSVP</button>
       <div id="message"></div>
     </form>
@@ -218,7 +239,6 @@
 </div>
 
 <script>
-// const ENDPOINT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzO8m_u6zLREDQ8gaq2SODHaMakXFmkdH2ddydC9EryFc4Nh9R1LKjsh0NwrFCoZCVv/exec";
 
 const form = document.getElementById("rsvpForm");
@@ -231,7 +251,8 @@ form.addEventListener("submit", async (e) => {
   const payload = {
     fullName: form.fullName.value.trim(),
     email: form.email.value.trim(),
-    attendance: form.attendance.value
+    attendance: form.attendance.value,
+    foodConstraints: form.foodConstraints.value.trim()
   };
 
   try {
