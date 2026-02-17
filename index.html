@@ -12,9 +12,8 @@
     --bg1:#1f2937;
     --bg2:#111827;
     --accent:#f97316;
-    --accent2:#22c55e;
     --card: rgba(255,255,255,0.08);
-    --muted: #d1d5db;
+    --muted:#d1d5db;
     --muted2:#9ca3af;
   }
 
@@ -65,17 +64,17 @@
     text-align:center;
   }
 
+  /* Large + orange, same style for Date & Time */
   .datetime{
     margin-top:14px;
     text-align:center;
-    font-size:26px;              /* same size as old date */
+    font-size:26px;
     font-weight:800;
     line-height:1.5;
     background: linear-gradient(90deg, #f97316, #fb923c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
+  }
 
   .about{
     margin-top:16px;
@@ -172,6 +171,32 @@
     color:var(--muted2);
     text-align:center;
   }
+
+  /* Optional add-to-calendar button at the bottom */
+  .calendarWrap{
+    margin-top:16px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .calendarBtn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 14px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:800;
+    color:#fff;
+    background: rgba(249,115,22,0.16);
+    border: 1px solid rgba(249,115,22,0.55);
+    transition:0.2s ease;
+  }
+
+  .calendarBtn:hover{
+    transform: translateY(-2px);
+    background: rgba(249,115,22,0.22);
+  }
 </style>
 </head>
 
@@ -179,10 +204,10 @@
 <div class="container">
 <div class="card">
 
+  <!-- Ensure banner.png exists in your repo -->
   <img class="banner" src="banner.png" alt="ML Research & Bites banner">
 
   <div class="content">
-
     <div class="emoji">🍕🍺🔬</div>
 
     <h1>ML Research &amp; Bites</h1>
@@ -229,7 +254,14 @@
 
     <div class="footer">Looking forward to seeing you!</div>
 
+    <!-- Optional: add-to-calendar button at the bottom -->
+    <div class="calendarWrap">
+      <a class="calendarBtn" href="ml-research-bites.ics">
+        📅 Add to calendar
+      </a>
+    </div>
   </div>
+
 </div>
 </div>
 
