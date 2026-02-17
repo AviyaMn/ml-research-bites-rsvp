@@ -65,34 +65,28 @@
     text-align:center;
   }
 
-  .date{
-    margin-top:12px;
-    font-size:26px;
-    font-weight:800;
+  .datetime{
+    margin-top:14px;
     text-align:center;
+    font-size:26px;              /* same size as old date */
+    font-weight:800;
+    line-height:1.5;
     background: linear-gradient(90deg, #f97316, #fb923c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
+}
 
-  .time{
-    font-size:18px;
-    font-weight:600;
-    text-align:center;
-    color:var(--muted);
-    margin-bottom:18px;
-  }
 
   .about{
+    margin-top:16px;
     text-align:center;
     color:var(--muted);
     line-height:1.5;
     font-size:15px;
-    margin-bottom:14px;
   }
 
   .program{
-    margin-top:12px;
+    margin-top:16px;
     padding:12px 14px;
     border-radius:14px;
     background: rgba(0,0,0,0.18);
@@ -108,7 +102,7 @@
     color:var(--muted2);
   }
 
-  form{margin-top:18px}
+  form{margin-top:20px}
 
   label{
     display:block;
@@ -128,10 +122,7 @@
     font-size:15px;
   }
 
-  textarea{
-    resize:vertical;
-    min-height:70px;
-  }
+  textarea{resize:vertical; min-height:70px;}
 
   input::placeholder, textarea::placeholder{
     color:rgba(255,255,255,0.55);
@@ -188,7 +179,6 @@
 <div class="container">
 <div class="card">
 
-  <!-- Make sure banner.png exists in your repo -->
   <img class="banner" src="banner.png" alt="ML Research & Bites banner">
 
   <div class="content">
@@ -196,8 +186,11 @@
     <div class="emoji">🍕🍺🔬</div>
 
     <h1>ML Research &amp; Bites</h1>
-    <div class="date">12.3</div>
-    <div class="time">17:00</div>
+
+    <div class="datetime">
+      Date: 12.3<br>
+      Time: 17:00
+    </div>
 
     <div class="about">
       ML Research &amp; Bites is a social gathering for graduate CS students interested in machine learning research.
@@ -252,7 +245,6 @@ form.addEventListener("submit", async (e) => {
   message.innerHTML = "";
 
   const fd = new FormData(form);
-
   const foodRaw = (fd.get("foodRestrictions") || "").toString().trim();
 
   const payload = {
