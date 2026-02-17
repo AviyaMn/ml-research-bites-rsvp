@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ML Research & Bites//RSVP//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ml-research-bites-20260312T170000
+DTSTAMP:20260217T000000Z
+SUMMARY:ML Research & Bites
+DESCRIPTION:Social gathering for graduate CS students interested in ML research. Program includes three short student presentations.
+DTSTART:20260312T170000
+DTEND:20260312T200000
+END:VEVENT
+END:VCALENDAR
