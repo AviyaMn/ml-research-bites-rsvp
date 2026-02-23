@@ -345,13 +345,13 @@
   );
 
   const startUtc = "20260312T150000Z";
-  const endUtc   = "20260312T180000Z";
+  const endUtc   = "20260312T163000Z";
 
   document.getElementById("gcalLink").href =
     `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${startUtc}/${endUtc}`;
 
   document.getElementById("outlookLink").href =
-    `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&startdt=2026-03-12T15:00:00Z&enddt=2026-03-12T18:00:00Z`;
+    `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&startdt=2026-03-12T15:00:00Z&enddt=2026-03-12T16:30:00Z`;
 
   // Dropdown toggle
   const toggle = document.getElementById("calendarToggle");
