@@ -28,8 +28,9 @@ UID:ml-research-bites-20260312T170000-asiajerusalem
 DTSTAMP:20260217T120000Z
 SUMMARY:ML Research & Bites
 DESCRIPTION:ML Research & Bites is a social gathering for graduate CS students interested in machine learning research. Program includes three short student presentations.
+LOCATION:Segel Room, 2nd Floor, Building 503 (CS)
 DTSTART;TZID=Asia/Jerusalem:20260312T170000
-DTEND;TZID=Asia/Jerusalem:20260312T200000
+DTEND;TZID=Asia/Jerusalem:20260312T183000
 END:VEVENT
 
 END:VCALENDAR
