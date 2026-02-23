@@ -39,17 +39,18 @@
   .card{
     background: var(--card-bg);
     border-radius: 22px;
-    overflow: visible;   /* ← change this */
+    overflow: visible; /* IMPORTANT: allow dropdown to show */
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     border: 2px solid var(--border-soft);
   }
-
 
   .banner{
     width:100%;
     display:block;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
   }
 
   .content{padding:30px}
@@ -75,6 +76,14 @@
     font-weight:800;
     line-height:1.5;
     color: var(--gold);
+  }
+
+  .location{
+    margin-top:6px;
+    text-align:center;
+    font-size:16px;
+    font-weight:600;
+    color: var(--navy);
   }
 
   .about{
@@ -172,6 +181,7 @@
     text-align:center;
   }
 
+  /* Calendar dropdown */
   .calendarWrap{
     margin-top:18px;
     display:flex;
@@ -179,9 +189,10 @@
     position:relative;
   }
 
-  /* This styles ONLY the calendar toggle button (not the submit button) */
+  /* Make sure calendar button is not full width */
   .calendarBtn{
     width:auto;
+    margin-top:0;
     display:inline-flex;
     align-items:center;
     gap:10px;
@@ -193,7 +204,6 @@
     font-weight:800;
     cursor:pointer;
     transition:0.2s ease;
-    margin-top:0;
   }
 
   .calendarBtn:hover{
@@ -235,6 +245,7 @@
   <div class="container">
     <div class="card">
 
+      <!-- Make sure this filename matches exactly in your repo -->
       <img class="banner" src="banner3_2.png" alt="ML Research & Bites banner">
 
       <div class="content">
@@ -245,6 +256,10 @@
         <div class="datetime">
           Date: 12.3<br>
           Time: 17:00
+        </div>
+
+        <div class="location">
+          Location: Segel Room, 2nd Floor, Building 503 (CS)
         </div>
 
         <div class="about">
@@ -284,9 +299,8 @@
         <div class="footer">Looking forward to seeing you!</div>
 
         <div class="calendarWrap">
-          <button type="button" class="calendarBtn" id="calendarToggle">📅 Add to calendar</button>
-
-          <div class="calendarMenu" id="calendarMenu" aria-hidden="true">
+          <button type="button" class="calendarBtn" id="calendarToggle">📅 Add to calendar</button>  
+          <div class="calendarMenu" id="calendarMenu">
             <a class="calendarItem" id="gcalLink" target="_blank" rel="noopener">Google Calendar</a>
             <a class="calendarItem" id="outlookLink" target="_blank" rel="noopener">Outlook (web)</a>
             <a class="calendarItem" href="ml-research-bites.ics">Apple / Other (.ics)</a>
@@ -336,40 +350,54 @@
 </script>
 
 <script>
-  // Calendar links (17:00–20:00 Jerusalem local) expressed in UTC for web calendar URLs:
-  // 17:00 Asia/Jerusalem on 2026-03-12 ≈ 15:00Z (standard time)
-  // 20:00 Asia/Jerusalem on 2026-03-12 ≈ 18:00Z
-  const title = encodeURIComponent("ML Research & Bites");
-  const details = encodeURIComponent(
-    "Social gathering for graduate CS students interested in machine learning research. Program includes three short student presentations."
-  );
+  window.addEventListener("DOMContentLoaded", () => {
+    // Calendar links for Mar 12, 2026, 17:00–20:00 Asia/Jerusalem.
+    // Using UTC in web links. On this date Jerusalem is typically UTC+2:
+    // 17:00 local -> 15:00Z, 20:00 local -> 18:00Z.
 
-  const startUtc = "20260312T150000Z";
-  const endUtc   = "20260312T163000Z";
+    const title = encodeURIComponent("ML Research & Bites");
+    const details = encodeURIComponent(
+      "Social gathering for graduate CS students interested in machine learning research. Program includes three short student presentations."
+    );
+    const location = encodeURIComponent("Segel Room, 2nd Floor, Building 503 (CS)");
 
-  document.getElementById("gcalLink").href =
-    `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${startUtc}/${endUtc}`;
+    const startUtc = "20260312T150000Z";
+    const endUtc   = "20260312T163000Z";
 
-  document.getElementById("outlookLink").href =
-    `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&startdt=2026-03-12T15:00:00Z&enddt=2026-03-12T16:30:00Z`;
+    const gcalLink = document.getElementById("gcalLink");
+    const outlookLink = document.getElementById("outlookLink");
+    const toggle = document.getElementById("calendarToggle");
+    const menu = document.getElementById("calendarMenu");
 
-  // Dropdown toggle
-  const toggle = document.getElementById("calendarToggle");
-  const menu = document.getElementById("calendarMenu");
+    // If any of these are missing, don't crash the whole page.
+    if (gcalLink) {
+      gcalLink.href =
+        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${startUtc}/${endUtc}`;
+    }
 
-  toggle.addEventListener("click", () => {
-    menu.classList.toggle("open");
-    menu.setAttribute("aria-hidden", menu.classList.contains("open") ? "false" : "true");
-  });
+    if (outlookLink) {
+      outlookLink.href =
+        `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&location=${location}&startdt=2026-03-12T15:00:00Z&enddt=2026-03-12T16:30:00Z`;
+    }
 
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && e.target !== toggle) {
-      menu.classList.remove("open");
-      menu.setAttribute("aria-hidden", "true");
+    if (toggle && menu) {
+      toggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menu.classList.toggle("open");
+        menu.setAttribute("aria-hidden", menu.classList.contains("open") ? "false" : "true");
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && e.target !== toggle) {
+          menu.classList.remove("open");
+          menu.setAttribute("aria-hidden", "true");
+        }
+      });
     }
   });
 </script>
+
 
 </body>
 </html>
