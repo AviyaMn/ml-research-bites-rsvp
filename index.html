@@ -9,12 +9,15 @@
 
 <style>
   :root{
-    --bg1:#1f2937;
-    --bg2:#111827;
-    --accent:#f97316;
-    --card: rgba(255,255,255,0.08);
-    --muted:#d1d5db;
-    --muted2:#9ca3af;
+    /* Banner-inspired palette */
+    --bg-main: #f3e9c9;        /* parchment */
+    --card-bg: #fbf6e6;
+    --navy: #1f3a56;
+    --gold: #d49b3f;
+    --gold-dark: #b8832f;
+    --text-main: #243447;
+    --text-muted: #5f6c7b;
+    --border-soft: rgba(31,58,86,0.25);
   }
 
   *{box-sizing:border-box}
@@ -22,8 +25,8 @@
   body{
     margin:0;
     font-family:Inter, system-ui, Arial, sans-serif;
-    background: linear-gradient(135deg, var(--bg1), var(--bg2));
-    color:#fff;
+    background: var(--bg-main);
+    color:var(--text-main);
     min-height:100vh;
     display:flex;
     align-items:center;
@@ -31,16 +34,16 @@
     padding:20px;
   }
 
-  .container{max-width:560px;width:100%}
+  .container{max-width:580px;width:100%}
 
   .card{
-    background: var(--card);
-    backdrop-filter: blur(14px);
+    background: var(--card-bg);
     border-radius: 22px;
-    overflow:hidden;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.45);
-    border: 1px solid rgba(255,255,255,0.10);
+    overflow: visible;   /* ← change this */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border: 2px solid var(--border-soft);
   }
+
 
   .banner{
     width:100%;
@@ -49,7 +52,7 @@
     object-fit: cover;
   }
 
-  .content{padding:28px}
+  .content{padding:30px}
 
   .emoji{
     font-size:34px;
@@ -62,84 +65,77 @@
     font-size:30px;
     font-weight:800;
     text-align:center;
+    color: var(--navy);
   }
 
-  /* Large + orange, same style for Date & Time */
   .datetime{
     margin-top:14px;
     text-align:center;
     font-size:26px;
     font-weight:800;
     line-height:1.5;
-    background: linear-gradient(90deg, #f97316, #fb923c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--gold);
   }
 
   .about{
     margin-top:16px;
     text-align:center;
-    color:var(--muted);
-    line-height:1.5;
+    color:var(--text-muted);
+    line-height:1.6;
     font-size:15px;
   }
 
   .program{
-    margin-top:16px;
-    padding:12px 14px;
-    border-radius:14px;
-    background: rgba(0,0,0,0.18);
-    border:1px solid rgba(255,255,255,0.12);
-    text-align:left;
+    margin-top:18px;
+    padding:14px 16px;
+    border-radius:16px;
+    background: #f6edd2;
+    border:2px solid var(--border-soft);
     font-size:14px;
+    color: var(--text-main);
   }
 
   .organizers{
     margin-top:14px;
     text-align:center;
     font-size:13px;
-    color:var(--muted2);
+    color:var(--text-muted);
   }
 
-  form{margin-top:20px}
+  form{margin-top:22px}
 
   label{
     display:block;
-    text-align:left;
-    margin:12px 0 6px;
+    margin:14px 0 6px;
     font-weight:700;
     font-size:13px;
+    color: var(--navy);
   }
 
   input, select, textarea{
     width:100%;
     padding:12px;
     border-radius:12px;
-    border:1px solid rgba(255,255,255,0.14);
-    background:rgba(255,255,255,0.08);
-    color:#fff;
+    border:2px solid var(--border-soft);
+    background:#fff;
+    color:var(--text-main);
     font-size:15px;
   }
 
   textarea{resize:vertical; min-height:70px;}
 
-  input::placeholder, textarea::placeholder{
-    color:rgba(255,255,255,0.55);
-  }
-
   input:focus, select:focus, textarea:focus{
     outline:none;
-    border-color:rgba(249,115,22,0.9);
-    box-shadow:0 0 0 3px rgba(249,115,22,0.2);
+    border-color: var(--gold);
   }
 
   button{
     width:100%;
     padding:14px;
-    margin-top:12px;
+    margin-top:16px;
     border-radius:14px;
     border:none;
-    background:var(--accent);
+    background: var(--gold);
     color:#fff;
     font-weight:800;
     font-size:16px;
@@ -147,161 +143,232 @@
     transition:0.2s ease;
   }
 
-  button:hover{transform:translateY(-2px); background:#ea580c}
+  button:hover{
+    background: var(--gold-dark);
+    transform: translateY(-2px);
+  }
 
   .success, .error{
     margin-top:14px;
     padding:12px;
     border-radius:12px;
+    font-size:14px;
   }
 
   .success{
-    background:rgba(34,197,94,0.18);
-    border:1px solid rgba(34,197,94,0.6);
+    background:#e8f4df;
+    border:2px solid #9bc48a;
   }
 
   .error{
-    background:rgba(239,68,68,0.18);
-    border:1px solid rgba(239,68,68,0.6);
+    background:#fde2e2;
+    border:2px solid #e29b9b;
   }
 
   .footer{
     margin-top:16px;
     font-size:12px;
-    color:var(--muted2);
+    color:var(--text-muted);
     text-align:center;
   }
 
-  /* Optional add-to-calendar button at the bottom */
   .calendarWrap{
-    margin-top:16px;
+    margin-top:18px;
     display:flex;
     justify-content:center;
+    position:relative;
   }
 
+  /* This styles ONLY the calendar toggle button (not the submit button) */
   .calendarBtn{
+    width:auto;
     display:inline-flex;
     align-items:center;
     gap:10px;
-    padding:12px 14px;
+    padding:12px 16px;
     border-radius:14px;
-    text-decoration:none;
+    border:2px solid var(--border-soft);
+    background:#f6edd2;
+    color: var(--navy);
     font-weight:800;
-    color:#fff;
-    background: rgba(249,115,22,0.16);
-    border: 1px solid rgba(249,115,22,0.55);
+    cursor:pointer;
     transition:0.2s ease;
+    margin-top:0;
   }
 
   .calendarBtn:hover{
+    background:#f0e3bf;
     transform: translateY(-2px);
-    background: rgba(249,115,22,0.22);
+  }
+
+  .calendarMenu{
+    position:absolute;
+    top:52px;
+    width:min(320px, 92vw);
+    background:#fff;
+    border:2px solid var(--border-soft);
+    border-radius:14px;
+    box-shadow: 0 18px 30px rgba(0,0,0,0.18);
+    padding:8px;
+    display:none;
+    z-index:10;
+  }
+
+  .calendarMenu.open{ display:block; }
+
+  .calendarItem{
+    display:block;
+    padding:10px 12px;
+    border-radius:10px;
+    text-decoration:none;
+    color: var(--text-main);
+    font-weight:700;
+  }
+
+  .calendarItem:hover{
+    background:#f6edd2;
   }
 </style>
 </head>
 
 <body>
-<div class="container">
-<div class="card">
+  <div class="container">
+    <div class="card">
 
-  <!-- Ensure banner.png exists in your repo -->
-  <img class="banner" src="baner3_small2.png" alt="ML Research & Bites banner">
+      <img class="banner" src="banner3_2.png" alt="ML Research & Bites banner">
 
-  <div class="content">
-    <div class="emoji">🍕🍺🔬</div>
+      <div class="content">
+        <div class="emoji">🍕🍺🔬</div>
 
-    <h1>ML Research &amp; Bites</h1>
+        <h1>ML Research &amp; Bites</h1>
 
-    <div class="datetime">
-      Date: 12.3<br>
-      Time: 17:00
-    </div>
+        <div class="datetime">
+          Date: 12.3<br>
+          Time: 17:00
+        </div>
 
-    <div class="about">
-      ML Research &amp; Bites is a social gathering for graduate CS students interested in machine learning research.
-    </div>
+        <div class="about">
+          ML Research &amp; Bites is a social gathering for graduate CS students interested in machine learning research.
+        </div>
 
-    <div class="program">
-      <strong>Program:</strong> The evening will focus on connecting and exchanging ideas, alongside three short presentations by students sharing their current work.
-    </div>
+        <div class="program">
+          <strong>Program:</strong> The evening will focus on connecting and exchanging ideas, alongside three short presentations by students sharing their current work.
+        </div>
 
-    <div class="organizers">
-      Organized by Yanai Elazar, Aviya Maimon &amp; Ben Fishman
-    </div>
+        <div class="organizers">
+          Organized by Yanai Elazar, Aviya Maimon &amp; Ben Fishman
+        </div>
 
-    <form id="rsvpForm">
-      <label for="fullName">Full Name</label>
-      <input id="fullName" type="text" name="fullName" required>
+        <form id="rsvpForm">
+          <label>Full Name</label>
+          <input type="text" name="fullName" required>
 
-      <label for="email">Email</label>
-      <input id="email" type="email" name="email" required>
+          <label>Email</label>
+          <input type="email" name="email" required>
 
-      <label for="attendance">Will you join?</label>
-      <select id="attendance" name="attendance" required>
-        <option value="">Select…</option>
-        <option value="Yes">Yes, I’m coming 🎉</option>
-        <option value="Maybe">Maybe 🤔</option>
-        <option value="No">No 😢</option>
-      </select>
+          <label>Will you join?</label>
+          <select name="attendance" required>
+            <option value="">Select…</option>
+            <option value="Yes">Yes</option>
+            <option value="Maybe">Maybe</option>
+            <option value="No">No</option>
+          </select>
 
-      <label for="foodRestrictions">Food Restrictions (optional)</label>
-      <textarea id="foodRestrictions" name="foodRestrictions"
-        placeholder="Vegetarian, vegan, allergies, etc."></textarea>
+          <label>Food Restrictions</label>
+          <textarea name="foodRestrictions" placeholder="Vegetarian, vegan, allergies, etc."></textarea>
 
-      <button type="submit">Submit RSVP</button>
-      <div id="message"></div>
-    </form>
+          <button type="submit">Submit RSVP</button>
+          <div id="message"></div>
+        </form>
 
-    <div class="footer">Looking forward to seeing you!</div>
+        <div class="footer">Looking forward to seeing you!</div>
 
-    <!-- Optional: add-to-calendar button at the bottom -->
-    <div class="calendarWrap">
-      <a class="calendarBtn" href="ml-research-bites.ics">
-        📅 Add to calendar
-      </a>
-    </div>
-  </div>
+        <div class="calendarWrap">
+          <button type="button" class="calendarBtn" id="calendarToggle">📅 Add to calendar</button>
 
-</div>
-</div>
+          <div class="calendarMenu" id="calendarMenu" aria-hidden="true">
+            <a class="calendarItem" id="gcalLink" target="_blank" rel="noopener">Google Calendar</a>
+            <a class="calendarItem" id="outlookLink" target="_blank" rel="noopener">Outlook (web)</a>
+            <a class="calendarItem" href="ml-research-bites.ics">Apple / Other (.ics)</a>
+          </div>
+        </div>
+
+      </div><!-- /.content -->
+    </div><!-- /.card -->
+  </div><!-- /.container -->
 
 <script>
-const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzO8m_u6zLREDQ8gaq2SODHaMakXFmkdH2ddydC9EryFc4Nh9R1LKjsh0NwrFCoZCVv/exec";
+  const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzO8m_u6zLREDQ8gaq2SODHaMakXFmkdH2ddydC9EryFc4Nh9R1LKjsh0NwrFCoZCVv/exec";
 
+  const form = document.getElementById("rsvpForm");
+  const message = document.getElementById("message");
 
-const form = document.getElementById("rsvpForm");
-const message = document.getElementById("message");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    message.innerHTML = "";
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  message.innerHTML = "";
+    const fd = new FormData(form);
+    const foodRaw = (fd.get("foodRestrictions") || "").toString().trim();
 
-  const fd = new FormData(form);
-  const foodRaw = (fd.get("foodRestrictions") || "").toString().trim();
+    const payload = {
+      fullName: (fd.get("fullName") || "").toString().trim(),
+      email: (fd.get("email") || "").toString().trim(),
+      attendance: (fd.get("attendance") || "").toString().trim(),
+      foodRestrictions: foodRaw ? foodRaw : "None"
+    };
 
-  const payload = {
-    fullName: (fd.get("fullName") || "").toString().trim(),
-    email: (fd.get("email") || "").toString().trim(),
-    attendance: (fd.get("attendance") || "").toString().trim(),
-    foodRestrictions: foodRaw ? foodRaw : "None"
-  };
+    try {
+      const res = await fetch(ENDPOINT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
 
-  try {
-    const res = await fetch(ENDPOINT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Submission failed");
 
-    const data = await res.json();
-    if (!res.ok || !data.ok) throw new Error(data.error || "Submission failed");
+      message.innerHTML = `<div class="success">✅ Your RSVP was recorded. See you there!</div>`;
+      form.reset();
+    } catch (err) {
+      message.innerHTML = `<div class="error">❌ ${err.message}</div>`;
+    }
+  });
+</script>
 
-    message.innerHTML = `<div class="success">✅ Your RSVP was recorded. See you there!</div>`;
-    form.reset();
-  } catch (err) {
-    message.innerHTML = `<div class="error">❌ ${err.message}</div>`;
-  }
-});
+<script>
+  // Calendar links (17:00–20:00 Jerusalem local) expressed in UTC for web calendar URLs:
+  // 17:00 Asia/Jerusalem on 2026-03-12 ≈ 15:00Z (standard time)
+  // 20:00 Asia/Jerusalem on 2026-03-12 ≈ 18:00Z
+  const title = encodeURIComponent("ML Research & Bites");
+  const details = encodeURIComponent(
+    "Social gathering for graduate CS students interested in machine learning research. Program includes three short student presentations."
+  );
+
+  const startUtc = "20260312T150000Z";
+  const endUtc   = "20260312T180000Z";
+
+  document.getElementById("gcalLink").href =
+    `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${startUtc}/${endUtc}`;
+
+  document.getElementById("outlookLink").href =
+    `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&startdt=2026-03-12T15:00:00Z&enddt=2026-03-12T18:00:00Z`;
+
+  // Dropdown toggle
+  const toggle = document.getElementById("calendarToggle");
+  const menu = document.getElementById("calendarMenu");
+
+  toggle.addEventListener("click", () => {
+    menu.classList.toggle("open");
+    menu.setAttribute("aria-hidden", menu.classList.contains("open") ? "false" : "true");
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && e.target !== toggle) {
+      menu.classList.remove("open");
+      menu.setAttribute("aria-hidden", "true");
+    }
+  });
 </script>
 
 </body>
