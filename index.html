@@ -9,8 +9,7 @@
 
 <style>
   :root{
-    /* Banner-inspired palette */
-    --bg-main: #f3e9c9;        /* parchment */
+    --bg-main: #f3e9c9;
     --card-bg: #fbf6e6;
     --navy: #1f3a56;
     --gold: #d49b3f;
@@ -34,26 +33,33 @@
     padding:20px;
   }
 
-  .container{max-width:580px;width:100%}
+  .container{
+    max-width:1100px;
+    width:100%;
+  }
 
   .card{
     background: var(--card-bg);
-    border-radius: 22px;
-    overflow: visible; /* IMPORTANT: allow dropdown to show */
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    border: 2px solid var(--border-soft);
+    border-radius:22px;
+    overflow:visible;
+    box-shadow:0 20px 40px rgba(0,0,0,0.15);
+    border:2px solid var(--border-soft);
   }
 
   .banner{
     width:100%;
+    height:auto;
     display:block;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-top-left-radius: 22px;
-    border-top-right-radius: 22px;
+    object-fit:contain;
+    border-top-left-radius:22px;
+    border-top-right-radius:22px;
   }
 
-  .content{padding:30px}
+  .content{
+    padding:30px;
+    max-width:620px;
+    margin:0 auto;
+  }
 
   .emoji{
     font-size:34px;
@@ -66,7 +72,7 @@
     font-size:30px;
     font-weight:800;
     text-align:center;
-    color: var(--navy);
+    color:var(--navy);
   }
 
   .datetime{
@@ -75,7 +81,7 @@
     font-size:26px;
     font-weight:800;
     line-height:1.5;
-    color: var(--gold);
+    color:var(--gold);
   }
 
   .location{
@@ -83,7 +89,7 @@
     text-align:center;
     font-size:16px;
     font-weight:600;
-    color: var(--navy);
+    color:var(--navy);
   }
 
   .about{
@@ -98,10 +104,10 @@
     margin-top:18px;
     padding:14px 16px;
     border-radius:16px;
-    background: #f6edd2;
+    background:#f6edd2;
     border:2px solid var(--border-soft);
     font-size:14px;
-    color: var(--text-main);
+    color:var(--text-main);
   }
 
   .organizers{
@@ -118,7 +124,7 @@
     margin:14px 0 6px;
     font-weight:700;
     font-size:13px;
-    color: var(--navy);
+    color:var(--navy);
   }
 
   input, select, textarea{
@@ -131,11 +137,14 @@
     font-size:15px;
   }
 
-  textarea{resize:vertical; min-height:70px;}
+  textarea{
+    resize:vertical;
+    min-height:70px;
+  }
 
   input:focus, select:focus, textarea:focus{
     outline:none;
-    border-color: var(--gold);
+    border-color:var(--gold);
   }
 
   button{
@@ -144,7 +153,7 @@
     margin-top:16px;
     border-radius:14px;
     border:none;
-    background: var(--gold);
+    background:var(--gold);
     color:#fff;
     font-weight:800;
     font-size:16px;
@@ -153,8 +162,8 @@
   }
 
   button:hover{
-    background: var(--gold-dark);
-    transform: translateY(-2px);
+    background:var(--gold-dark);
+    transform:translateY(-2px);
   }
 
   .success, .error{
@@ -181,7 +190,6 @@
     text-align:center;
   }
 
-  /* Calendar dropdown */
   .calendarWrap{
     margin-top:18px;
     display:flex;
@@ -189,7 +197,6 @@
     position:relative;
   }
 
-  /* Make sure calendar button is not full width */
   .calendarBtn{
     width:auto;
     margin-top:0;
@@ -200,7 +207,7 @@
     border-radius:14px;
     border:2px solid var(--border-soft);
     background:#f6edd2;
-    color: var(--navy);
+    color:var(--navy);
     font-weight:800;
     cursor:pointer;
     transition:0.2s ease;
@@ -208,7 +215,7 @@
 
   .calendarBtn:hover{
     background:#f0e3bf;
-    transform: translateY(-2px);
+    transform:translateY(-2px);
   }
 
   .calendarMenu{
@@ -218,25 +225,32 @@
     background:#fff;
     border:2px solid var(--border-soft);
     border-radius:14px;
-    box-shadow: 0 18px 30px rgba(0,0,0,0.18);
+    box-shadow:0 18px 30px rgba(0,0,0,0.18);
     padding:8px;
     display:none;
     z-index:10;
   }
 
-  .calendarMenu.open{ display:block; }
+  .calendarMenu.open{display:block}
 
   .calendarItem{
     display:block;
     padding:10px 12px;
     border-radius:10px;
     text-decoration:none;
-    color: var(--text-main);
+    color:var(--text-main);
     font-weight:700;
   }
 
   .calendarItem:hover{
     background:#f6edd2;
+  }
+
+  @media (max-width:700px){
+    body{padding:12px}
+    .content{padding:22px}
+    h1{font-size:26px}
+    .datetime{font-size:23px}
   }
 </style>
 </head>
@@ -245,7 +259,6 @@
   <div class="container">
     <div class="card">
 
-      <!-- Make sure this filename matches exactly in your repo -->
       <img class="banner" src="baner_2june2026.png" alt="ML Research & Bites banner">
 
       <div class="content">
@@ -299,17 +312,18 @@
         <div class="footer">Looking forward to seeing you!</div>
 
         <div class="calendarWrap">
-          <button type="button" class="calendarBtn" id="calendarToggle">📅 Add to calendar</button>  
-          <div class="calendarMenu" id="calendarMenu">
+          <button type="button" class="calendarBtn" id="calendarToggle">📅 Add to calendar</button>
+
+          <div class="calendarMenu" id="calendarMenu" aria-hidden="true">
             <a class="calendarItem" id="gcalLink" target="_blank" rel="noopener">Google Calendar</a>
             <a class="calendarItem" id="outlookLink" target="_blank" rel="noopener">Outlook (web)</a>
             <a class="calendarItem" href="ml-research-bites.ics">Apple / Other (.ics)</a>
           </div>
         </div>
 
-      </div><!-- /.content -->
-    </div><!-- /.card -->
-  </div><!-- /.container -->
+      </div>
+    </div>
+  </div>
 
 <script>
   const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzO8m_u6zLREDQ8gaq2SODHaMakXFmkdH2ddydC9EryFc4Nh9R1LKjsh0NwrFCoZCVv/exec";
@@ -351,33 +365,29 @@
 
 <script>
   window.addEventListener("DOMContentLoaded", () => {
-    // Calendar links for Mar 12, 2026, 17:00–20:00 Asia/Jerusalem.
-    // Using UTC in web links. On this date Jerusalem is typically UTC+2:
-    // 17:00 local -> 15:00Z, 20:00 local -> 18:00Z.
-
     const title = encodeURIComponent("ML Research & Bites");
     const details = encodeURIComponent(
       "Social gathering for graduate CS students interested in machine learning research. Program includes three short student presentations."
     );
     const location = encodeURIComponent("Segel Room, 2nd Floor, Building 503 (CS)");
 
-    const startUtc = "20260312T150000Z";
-    const endUtc   = "20260312T163000Z";
+    // June 2, 2026, 16:30–18:00, Asia/Jerusalem
+    const startLocal = "20260602T163000";
+    const endLocal = "20260602T180000";
 
     const gcalLink = document.getElementById("gcalLink");
     const outlookLink = document.getElementById("outlookLink");
     const toggle = document.getElementById("calendarToggle");
     const menu = document.getElementById("calendarMenu");
 
-    // If any of these are missing, don't crash the whole page.
     if (gcalLink) {
       gcalLink.href =
-        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${startUtc}/${endUtc}`;
+        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${startLocal}/${endLocal}&ctz=Asia/Jerusalem`;
     }
 
     if (outlookLink) {
       outlookLink.href =
-        `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&location=${location}&startdt=2026-03-12T15:00:00Z&enddt=2026-03-12T16:30:00Z`;
+        `https://outlook.live.com/calendar/0/deeplink/compose?subject=${title}&body=${details}&location=${location}&startdt=2026-06-02T16:30:00&enddt=2026-06-02T18:00:00`;
     }
 
     if (toggle && menu) {
@@ -387,7 +397,6 @@
         menu.setAttribute("aria-hidden", menu.classList.contains("open") ? "false" : "true");
       });
 
-      // Close menu when clicking outside
       document.addEventListener("click", (e) => {
         if (!menu.contains(e.target) && e.target !== toggle) {
           menu.classList.remove("open");
@@ -397,7 +406,6 @@
     }
   });
 </script>
-
 
 </body>
 </html>
